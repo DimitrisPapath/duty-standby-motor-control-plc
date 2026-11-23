@@ -4,8 +4,8 @@ Industrial automation portfolio project implementing a **duty/standby control sy
 
 The project combines **IEC 61131-3 PLC programming** (Ladder Diagram + Structured Text in OpenPLC) with a **two-sheet electrical panel design** (400 V AC power circuit & 24 V DC PLC control wiring in AutoCAD Electrical) and full technical documentation.
 
-📄 **[Read the Full Technical Report (PDF)](docs/Motor_Control_Report.pdf)**  
-📐 **[View Electrical Panel Schematics (PDF)](electrical-panel/Plc_motor_control.pdf)**
+📄 **[Read the Full Technical Report (PDF)](docs/PLC_Motor_Control.pdf)**  
+📐 **[View Electrical Panel Schematics (PDF)](electrical_panel/Plc_motor_control.pdf)**
 
 ---
 
@@ -23,6 +23,7 @@ The project combines **IEC 61131-3 PLC programming** (Ladder Diagram + Structure
 ## System Architecture & Repository Structure
 
 Two POUs execute sequentially within a single **20 ms cyclic task**:
+
 1. **`main` (Ladder Diagram):** Start/stop latching, safety interlocks, latched fault logic, reset timers, and duty rotation.
 2. **`switch_counter` (Structured Text):** Active motor detection, edge-filtered switch counter, and 1 s runtime accumulators.
 
@@ -34,7 +35,7 @@ duty-standby-motor-control-plc/
 ├── pous/                          # IEC 61131-3 POUs (main Ladder & switch_counter ST)
 ├── devices/                       # Hardware & resource configuration
 ├── docs/
-│   ├── Motor_Control_Report.pdf   # Full technical report (LaTeX)
+│   └── PLC_Motor_Control.pdf   # Full technical report (LaTeX)
 ├── electrical_panel/
 │   ├── Plc_motor_control.pdf      # Exported schematics (Power & Control)
 │   ├── Plc_motor_control.wdp      # AutoCAD Electrical project file
@@ -42,3 +43,43 @@ duty-standby-motor-control-plc/
 └── media/
     ├── cmds.png                   # Motor command simulation traces
     └── active_sw.png              # Active motor & switch counter traces
+```
+
+---
+
+## I/O Allocation
+
+### Digital Inputs (`24 V DC`)
+| Tag | Description | Field Device | Contact | Terminal |
+| :--- | :--- | :--- | :---: | :---: |
+| `START_CMD` | System start | Push button S1 | NO | `I/0` |
+| `STOP_CMD` | System stop (`TRUE` = normal) | Push button S2 | NC | `I/1` |
+| `Fault_reset` | Manual fault reset | Push button S3 | NO | `I/2` |
+| `M1_thermal` | Motor 1 overload relay (`TRUE` = OK) | F1 aux contact | NC | `I/3` |
+| `M2_thermal` | Motor 2 overload relay (`TRUE` = OK) | F2 aux contact | NC | `I/4` |
+| `E_STOP` | Emergency stop (`TRUE` = normal) | Push button S4 | NC | `I/5` |
+
+### Digital Outputs (Relay Outputs)
+| Tag | Description | Field Device | Terminal |
+| :--- | :--- | :--- | :---: |
+| `M1_CMD` | Contactor 1 command | Coil KM1 (`24 V DC`) | `D/0` |
+| `M2_CMD` | Contactor 2 command | Coil KM2 (`24 V DC`) | `D/1` |
+| `ALARM_LAMP` | Fault indication | Red lamp H1 | `D/2` |
+| `RUN_LAMP` | System running | Green lamp H2 | `D/3` |
+
+---
+
+## Simulation & Verification
+
+All operating scenarios (healthy start, thermal failover, 5 s fault reset, double fault lockout, E-Stop latching, and time-based rotation with standby fault blocking) were verified in the **OpenPLC Simulator**.
+
+### Duty Rotation Waveforms ($M1 \rightarrow M2 \rightarrow M1$)
+![Motor Commands](media/cmds.png)
+![Active Motor and Switch Counter](media/active_sw.png)
+
+---
+
+## Author
+
+**Dimitrios Papatheodorou** — Electrical & Computer Engineering Student  
+* LinkedIn: [linkedin.com/in/your-username](https://www.linkedin.com/in/your-username)
