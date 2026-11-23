@@ -82,4 +82,4 @@ All operating scenarios (healthy start, thermal failover, 5 s fault reset, doubl
 ## Author
 
 **Dimitrios Papatheodorou** — Electrical & Computer Engineering Student  
-* LinkedIn: [linkedin.com/in/your-username](www.linkedin.com/in/dimitris-papatheodorou-a07b0a32a)
+* LinkedIn: [dimitris-papatheodorou-a07b0a32a](www.linkedin.com/in/dimitris-papatheodorou-a07b0a32a)
