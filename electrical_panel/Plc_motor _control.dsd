@@ -1,0 +1,64 @@
+[DWF6Version]
+Ver=1
+[DWF6MinorVersion]
+MinorVer=1
+[DWF6Sheet:Power_Cirquit]
+DWG=C:\Users\papat\Desktop\engineering\small_projects\Motor Control\Plc_motor _control\Power_Cirquit.dwg
+Layout=Model
+Setup=
+OriginalSheetPath=C:\Users\papat\Desktop\engineering\small_projects\Motor Control\Plc_motor _control\Power_Cirquit.dwg
+Has Plot Port=0
+Has3DDWF=0
+[DWF6Sheet:02_Control_PLC]
+DWG=C:\Users\papat\Desktop\engineering\small_projects\Motor Control\Plc_motor _control\02_Control_PLC.dwg
+Layout=Model
+Setup=
+OriginalSheetPath=C:\Users\papat\Desktop\engineering\small_projects\Motor Control\Plc_motor _control\02_Control_PLC.dwg
+Has Plot Port=0
+Has3DDWF=0
+[Target]
+Type=6
+DWF=C:\Users\papat\Desktop\engineering\small_projects\Motor Control\Plc_motor _control.pdf
+OUT=C:\Users\papat\Documents\
+PWD=
+[AcePublish]
+IncludeBookmarks=TRUE
+IncludeHyperlinks=TRUE
+ZoomFactor=50
+TempFolder=C:\Users\papat\AppData\Local\Temp\AcePub_22642\
+OriginWdpPath=C:\Users\papat\Desktop\engineering\small_projects\Motor Control\Plc_motor _control\Plc_motor _control.wdp
+OriginMdbPath=C:\Users\papat\AppData\Roaming\Autodesk\AutoCAD Electrical 2026\R25.1\enu\Support\user\Plc_motor _control.mdb
+TempWdpPath=C:\Users\papat\AppData\Local\Temp\AcePub_22642\Plc_motor _control.wdp
+TempMdbPath=C:\Users\papat\AppData\Local\Temp\AcePub_22642\Plc_motor _control.mdb
+[PdfOptions]
+IncludeHyperlinks=TRUE
+CreateBookmarks=FALSE
+CaptureFontsInDrawing=TRUE
+ConvertTextToGeometry=FALSE
+VectorResolution=1200
+RasterResolution=400
+[AutoCAD Block Data]
+IncludeBlockInfo=0
+BlockTmplFilePath=
+[SheetSet Properties]
+IsSheetSet=FALSE
+IsHomogeneous=FALSE
+SheetSet Name=
+NoOfCopies=1
+PlotStampOn=FALSE
+ViewFile=FALSE
+JobID=0
+SelectionSetName=
+AcadProfile=<<ACADE>>
+CategoryName=
+LogFilePath=
+IncludeLayer=FALSE
+LineMerge=FALSE
+CurrentPrecision=
+PromptForDwfName=TRUE
+PwdProtectPublishedDWF=FALSE
+PromptForPwd=FALSE
+RepublishingMarkups=FALSE
+PublishSheetSetMetadata=FALSE
+PublishSheetMetadata=FALSE
+3DDWFOptions=0 1

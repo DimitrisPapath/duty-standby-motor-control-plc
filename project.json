@@ -1,0 +1,115 @@
+{
+  "meta": {
+    "name": "Motor Control",
+    "type": "plc-project"
+  },
+  "data": {
+    "dataTypes": [],
+    "pous": [],
+    "configuration": {
+      "resource": {
+        "tasks": [
+          {
+            "name": "task0",
+            "triggering": "Cyclic",
+            "interval": "T#20ms",
+            "priority": 1
+          }
+        ],
+        "instances": [
+          {
+            "name": "instance0",
+            "task": "task0",
+            "program": "main"
+          },
+          {
+            "name": "instance1",
+            "task": "task0",
+            "program": "switch_counter"
+          }
+        ],
+        "globalVariables": [
+          {
+            "name": "ACTIVE_MOTOR",
+            "type": {
+              "definition": "base-type",
+              "value": "INT"
+            },
+            "location": "",
+            "initialValue": null,
+            "documentation": "",
+            "debug": true
+          },
+          {
+            "name": "M1_CMD",
+            "type": {
+              "definition": "base-type",
+              "value": "BOOL"
+            },
+            "location": "",
+            "initialValue": null,
+            "documentation": "",
+            "debug": true
+          },
+          {
+            "name": "M2_CMD",
+            "type": {
+              "definition": "base-type",
+              "value": "BOOL"
+            },
+            "location": "",
+            "initialValue": null,
+            "documentation": "",
+            "debug": true
+          },
+          {
+            "name": "PREV_ACTIVE_MOTOR",
+            "type": {
+              "definition": "base-type",
+              "value": "INT"
+            },
+            "location": "",
+            "initialValue": null,
+            "documentation": "",
+            "debug": false
+          },
+          {
+            "name": "SWITCH_COUNT",
+            "type": {
+              "definition": "base-type",
+              "value": "INT"
+            },
+            "location": "",
+            "initialValue": null,
+            "documentation": "",
+            "debug": true
+          }
+        ]
+      }
+    },
+    "libraries": [],
+    "debugVariables": {
+      "global": [
+        "ACTIVE_MOTOR",
+        "M1_CMD",
+        "M2_CMD",
+        "SWITCH_COUNT"
+      ],
+      "pous": {
+        "main": [
+          "M1_CMD",
+          "M2_CMD",
+          "M1_FAULT",
+          "M2_FAULT"
+        ],
+        "switch_counter": [
+          "ACTIVE_MOTOR",
+          "SWITCH_COUNT",
+          "M1_CMD",
+          "M2_CMD",
+          "M1_TICK"
+        ]
+      }
+    }
+  }
+}
