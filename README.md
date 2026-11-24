@@ -13,7 +13,7 @@ The project combines **IEC 61131-3 PLC programming** (Ladder Diagram + Structure
 
 * **Mutual Interlocking (Software & Hardware):** Prevents simultaneous operation of M1 and M2 via PLC interlock contacts and hardwired NC auxiliary contacts (`KM1` / `KM2`).
 * **Fail-Safe Input Logic:** Stop (`STOP_CMD`), Emergency Stop (`E_STOP`), and thermal overload relays (`M1_thermal`, `M2_thermal`) are wired as **Normally Closed (NC)** so a broken wire triggers a safe stop.
-* **Latched Thermal Faults & Automatic Failover:** If the duty motor trips on thermal overload, its command drops and the standby motor takes over within the **same 20 ms scan cycle**.
+* - **Latched Thermal Faults & Automatic Failover:** If the duty motor trips on thermal overload, its command drops and the standby motor takes over automatically within **1–2 scan cycles (20–40 ms)** depending on rung evaluation order (`M1 → M2` in a single scan; `M2 → M1` with a 1-scan break-before-make dead-time).
 * **Manual Reset with Restart Delay:** Pressing `Fault_reset` initiates a 5 s on-delay timer before clearing `Mx_FAULT`; the recovered motor returns to standby without interrupting the active motor.
 * **Time-Based Duty Rotation:** Automatic wear-sharing rotation between M1 and M2 (15 s demonstration interval), blocked automatically if the standby motor is faulted.
 * **Runtime & Switch Tracking (Structured Text):** Dedicated ST POU (`switch_counter`) tracks active motor state, counts valid duty transitions (ignoring initial startup and scan-cycle dead-times), and accumulates runtime in seconds (`DINT`).
@@ -66,6 +66,15 @@ duty-standby-motor-control-plc/
 | `M2_CMD` | Contactor 2 command | Coil KM2 (`24 V DC`) | `D/1` |
 | `ALARM_LAMP` | Fault indication | Red lamp H1 | `D/2` |
 | `RUN_LAMP` | System running | Green lamp H2 | `D/3` |
+
+---
+
+## How to Run
+
+1. Open the project folder in OpenPLC Editor and run it on the OpenPLC Simulator target.
+2. Force `STOP_CMD`, `E_STOP`, `M1_thermal` and `M2_thermal` to `TRUE`. They are NC devices (TRUE = healthy), so they default to FALSE in the simulator and the system will not start otherwise.
+3. Force `START_CMD` to `TRUE` briefly. M1 starts and M2 stays in standby.
+4. Try a thermal failover (`M1_thermal` to `FALSE`), a reset (`M1_thermal` to `TRUE`, then pulse `Fault_reset`; the fault clears after 5 s), or wait for the 15 s rotation.
 
 ---
 
