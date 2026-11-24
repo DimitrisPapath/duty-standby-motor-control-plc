@@ -13,7 +13,7 @@ PROGRAM switch_counter
     M2_RUNTIME : DINT;
   END_VAR
 
-(* 1. Εντοπισμός ενεργού μοτέρ *)
+(* 1. Tracking active motor *)
 IF M1_CMD THEN
     ACTIVE_MOTOR := 1;
 ELSIF M2_CMD THEN
@@ -22,24 +22,24 @@ ELSE
     ACTIVE_MOTOR := 0;
 END_IF;
 
-(* 2. Καταμέτρηση εναλλαγών χωρίς την πρώτη εκκίνηση *)
+(* 2. Counting changes but not the start *)
 IF ACTIVE_MOTOR <> 0 THEN
-    (* Μετράμε εναλλαγή μόνο αν υπήρχε ήδη ενεργό μοτέρ πριν (όχι από 0) *)
+    (* counting changes only if there was a motor active before*)
     IF PREV_ACTIVE_MOTOR <> 0 AND ACTIVE_MOTOR <> PREV_ACTIVE_MOTOR THEN
         SWITCH_COUNT := SWITCH_COUNT + 1;
     END_IF;
 
-    (* Ενημέρωση της προηγούμενης κατάστασης σε κάθε αλλαγή *)
+    (* Update the previous state in each change *)
     PREV_ACTIVE_MOTOR := ACTIVE_MOTOR;
 END_IF;
 
-(* 3. Χρονομέτρηση M1 *)
+(* 3. Timing M1 *)
 M1_TICK(IN := M1_CMD AND NOT M1_TICK.Q, PT := T#1s);
 IF M1_TICK.Q THEN
     M1_RUNTIME := M1_RUNTIME + 1;
 END_IF;
 
-(* 4. Χρονομέτρηση M2 *)
+(* 4. Timing M2 *)
 M2_TICK(IN := M2_CMD AND NOT M2_TICK.Q, PT := T#1s);
 IF M2_TICK.Q THEN
     M2_RUNTIME := M2_RUNTIME + 1;
